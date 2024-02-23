@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weather_app/services/location_service.dart';
 import '../utilities/constant.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  late LocationService locationService = LocationService();
   @override
   void initState() {
     super.initState();
@@ -18,10 +20,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
-
-    print(position.latitude);
+    await locationService.getCurrentLocation();
+    print(locationService.getLatitude());
   }
 
   @override
