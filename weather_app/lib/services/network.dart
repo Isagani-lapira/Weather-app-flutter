@@ -7,7 +7,7 @@ class NetworkHelper {
   final double longitude;
 
   const NetworkHelper({required this.latitude, required this.longitude});
-  void getData() async {
+  Future getData() async {
     var url = Uri.https('api.openweathermap.org', '/data/2.5/forecast', {
       'lat': latitude.toString(),
       'lon': longitude.toString(),
@@ -17,8 +17,7 @@ class NetworkHelper {
     try {
       if (response.statusCode == 200) {
         var data = response.body; //content
-        var decodedData = jsonDecode(data); //json data
-        print(data);
+        return jsonDecode(data); //json data
       }
     } catch (e) {
       print('rar');
