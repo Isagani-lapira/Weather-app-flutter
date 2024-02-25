@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/services/location_service.dart';
+import 'package:weather_app/services/network.dart';
 import '../utilities/constant.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -13,15 +15,24 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   late LocationService locationService = LocationService();
+  late NetworkHelper networkHelper;
+  late double latitude;
+  late double longitude;
+
   @override
   void initState() {
     super.initState();
-    getLocation();
+    getLocationData();
   }
 
-  void getLocation() async {
+  void getLocationData() async {
     await locationService.getCurrentLocation();
-    print(locationService.getLatitude());
+    latitude = locationService.getLatitude();
+    longitude = locationService.getLongitude();
+
+    networkHelper = NetworkHelper(latitude: latitude, longitude: longitude);
+
+    var data = await networkHelper.getData();
   }
 
   @override
@@ -36,7 +47,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               radius: 50,
               color: Colors.white,
             ),
-            loadingText,
+            kloadingText,
           ],
         ),
       ),
