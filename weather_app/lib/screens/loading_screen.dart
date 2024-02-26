@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/services/location_service.dart';
 import 'package:weather_app/services/network.dart';
 import '../utilities/constant.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -37,15 +36,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CupertinoActivityIndicator(
-              animating: true,
-              radius: 50,
-              color: Colors.white,
+            LoadingAnimationWidget.fourRotatingDots(
+              color: const Color(0xffD02A02),
+              size: 45.0,
+            ),
+            const SizedBox(
+              height: 10.0
             ),
             kloadingText,
           ],
