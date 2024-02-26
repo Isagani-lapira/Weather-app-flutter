@@ -10,10 +10,10 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF41DCBB),
+        scaffoldBackgroundColor: const Color(0xFFF7C9A7),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
-            fontSize: 22.0,
+            fontSize: 16.0,
             fontFamily: 'Poppins',
           ),
         ),
