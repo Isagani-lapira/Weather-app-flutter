@@ -1,5 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/utilities/constant.dart';
 
 class ResultPage extends StatefulWidget {
   const ResultPage({super.key});
@@ -12,10 +13,10 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD02A02),
+      backgroundColor: kSunnyColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
               const Row(
@@ -70,12 +71,12 @@ class _ResultPageState extends State<ResultPage> {
                             children: [
                               Icon(
                                 Icons.air,
-                                color: Color.fromARGB(255, 223, 159, 145),
+                                color: kSubLabelColor,
                               ),
                               Text(
                                 '5 km/h',
                                 style: TextStyle(
-                                  color: Color.fromARGB(255, 223, 159, 145),
+                                  color: kSubLabelColor,
                                   fontSize: 14.0,
                                 ),
                               ),
