@@ -1,6 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/screens/result_screen.dart';
 import 'package:weather_app/services/location_service.dart';
@@ -40,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ResultPage(),
+        builder: (context) => const ResultPage(),
       ),
     );
   }
@@ -53,7 +51,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             LoadingAnimationWidget.fourRotatingDots(
-              color: const Color(0xffD02A02),
+              color: kSunnyColor,
               size: 45.0,
             ),
             const SizedBox(height: 10.0),

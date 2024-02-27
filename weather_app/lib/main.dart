@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/screens/loading_screen.dart';
 import 'package:weather_app/screens/result_screen.dart';
 
+import 'utilities/constant.dart';
+
 void main() => runApp(const WeatherApp());
 
 class WeatherApp extends StatelessWidget {
@@ -11,7 +13,7 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF7C9A7),
+        scaffoldBackgroundColor: kCloudyBackground,
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
             fontSize: 18.0,
