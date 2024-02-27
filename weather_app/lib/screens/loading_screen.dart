@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/screens/result_screen.dart';
 import 'package:weather_app/services/location_service.dart';
 import 'package:weather_app/services/network.dart';
 import '../utilities/constant.dart';
@@ -21,10 +24,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    getLocationData();
+    getLocationData(context); // Call getLocationData with the context
   }
 
-  void getLocationData() async {
+  void getLocationData(BuildContext context) async {
     await locationService.getCurrentLocation();
     latitude = locationService.getLatitude();
     longitude = locationService.getLongitude();
@@ -32,6 +35,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
     networkHelper = NetworkHelper(latitude: latitude, longitude: longitude);
 
     var data = await networkHelper.getData();
+
+    // Navigate to ResultScreen with the fetched data
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultPage(),
+      ),
+    );
   }
 
   @override
@@ -45,9 +56,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               color: const Color(0xffD02A02),
               size: 45.0,
             ),
-            const SizedBox(
-              height: 10.0
-            ),
+            const SizedBox(height: 10.0),
             kloadingText,
           ],
         ),
