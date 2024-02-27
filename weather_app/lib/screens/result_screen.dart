@@ -25,7 +25,6 @@ class _ResultPageState extends State<ResultPage> {
                     flex: 1,
                     child: Icon(
                       Icons.sync,
-                      color: Colors.white,
                     ),
                   ),
                   Expanded(
@@ -35,7 +34,12 @@ class _ResultPageState extends State<ResultPage> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Expanded(flex: 1, child: SizedBox()),
+                  Expanded(
+                    flex: 1,
+                    child: Icon(
+                      Icons.location_city,
+                    ),
+                  ),
                 ],
               ),
               Expanded(
