@@ -5,28 +5,37 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper {
-  final double latitude;
-  final double longitude;
+  final double? latitude;
+  final double? longitude;
+  final String? cityName;
 
-  const NetworkHelper({required this.latitude, required this.longitude});
+  const NetworkHelper({
+    this.latitude,
+    this.longitude,
+    this.cityName,
+  });
+
   Future getData() async {
-    var url = Uri.https('api.openweathermap.org', '/data/2.5/forecast', {
-      'lat': latitude.toString(),
-      'lon': longitude.toString(),
-      'appid': kAPIKey,
-      'units': 'metric' //for celcius
-    });
+    // check what url to be use with city name or lat and longitude
+    var url = (cityName != null)
+        ? kCityUrl(cityName!)
+        : kLatLongURL(latitude!, longitude!);
+
     http.Response response = await http.get(url);
     try {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         List<WeatherModel> forecast = [];
-
+        String cityName = data['city']['name'];
         for (var item in data['list']) {
           WeatherModel weatherModel = WeatherModel(
-            temp: item['main']['temp'],
+            temp: (item['main']['temp'] - 273.15),
             windSpeed: item['wind']['speed'],
             weatherDesc: item['weather'][0]['description'],
+            weatherMain: WeatherModel.getWeatherIcon(
+              item['weather'][0]['main'],
+            ),
+            cityName: cityName,
           );
           forecast.add(weatherModel);
         }

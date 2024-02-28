@@ -14,33 +14,26 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  late LocationService locationService = LocationService();
+  LocationService locationService = LocationService();
   late NetworkHelper networkHelper;
-  late double latitude;
-  late double longitude;
-
   @override
   void initState() {
     super.initState();
-    getLocationData(context); // Call getLocationData with the context
+    // run resultpage immediately after retrieving data
+    getLocationAndNavigate();
   }
 
-  void getLocationData(BuildContext context) async {
+  void getLocationAndNavigate() async {
     await locationService.getCurrentLocation();
-    latitude = locationService.getLatitude();
-    longitude = locationService.getLongitude();
-
-    networkHelper = NetworkHelper(latitude: latitude, longitude: longitude);
+    networkHelper = NetworkHelper(
+      latitude: locationService.getLatitude(),
+      longitude: locationService.getLongitude(),
+    );
 
     var data = await networkHelper.getData();
-
-    // Navigate to ResultScreen with the fetched data
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ResultPage(),
-      ),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return ResultPage(data: data);
+    }));
   }
 
   @override

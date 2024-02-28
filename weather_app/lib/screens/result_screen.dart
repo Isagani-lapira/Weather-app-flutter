@@ -1,15 +1,45 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/screens/search_city_screen.dart';
+import 'package:weather_app/services/location_service.dart';
+import 'package:weather_app/services/network.dart';
 import 'package:weather_app/utilities/constant.dart';
+import 'package:weather_app/widgets/weather_widget.dart';
+
+import '../model/weather_model.dart';
 
 class ResultPage extends StatefulWidget {
-  const ResultPage({super.key});
-
+  final List<WeatherModel> data;
+  const ResultPage({super.key, required this.data});
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
+  late double temperatureVal;
+  late double windSpeedVal;
+  late String weatherMain;
+  late String cityName;
+  LocationService locationService = LocationService();
+  late NetworkHelper networkHelper;
+
+  @override
+  void initState() {
+    super.initState();
+    temperatureVal = widget.data[0].temp;
+    windSpeedVal = widget.data[0].windSpeed;
+    weatherMain = widget.data[0].weatherMain;
+    cityName = widget.data[0].cityName;
+  }
+
+  void updateData() async {
+    var data = await networkHelper.getData();
+    setState(() {
+      temperatureVal = data[0].temp;
+      windSpeedVal = data[0].windSpeed;
+      weatherMain = data[0].weatherMain;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,77 +49,59 @@ class _ResultPageState extends State<ResultPage> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              const Row(
+              Row(
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Icon(
-                      Icons.sync,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await locationService.getCurrentLocation();
+                        networkHelper = NetworkHelper(
+                          latitude: locationService.getLatitude(),
+                          longitude: locationService.getLongitude(),
+                        );
+                        updateData();
+                      },
+                      child: const Icon(
+                        Icons.sync,
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 3,
                     child: Text(
-                      'Sydney',
+                      cityName,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Icon(
-                      Icons.location_city,
+                    child: GestureDetector(
+                      onTap: () async {
+                        //open search city page
+                        String cityName = await Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const SearchCity();
+                        }));
+
+                        if (cityName != '') {
+                          networkHelper = NetworkHelper(cityName: cityName);
+                          updateData();
+                        }
+                      },
+                      child: const Icon(
+                        Icons.location_city,
+                      ),
                     ),
                   ),
                 ],
               ),
               Expanded(
                 flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/image/sunny.png',
-                      fit: BoxFit.contain,
-                      height: 150.0,
-                      width: 150.0,
-                    ),
-                    Text(
-                      '34°',
-                      style: GoogleFonts.ptSerif(
-                        fontSize: 52.0,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    const Text(
-                      'The floor is lava',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.air,
-                                color: kSubLabelColor,
-                              ),
-                              Text(
-                                '5 km/h',
-                                style: TextStyle(
-                                  color: kSubLabelColor,
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                child: WeatherWidget(
+                  temp: temperatureVal,
+                  windSpeed: windSpeedVal,
+                  weatherMain: weatherMain,
                 ),
               )
             ],

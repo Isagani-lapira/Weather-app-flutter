@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/screens/loading_screen.dart';
-import 'package:weather_app/screens/result_screen.dart';
-
 import 'utilities/constant.dart';
 
 void main() => runApp(const WeatherApp());
@@ -22,7 +20,7 @@ class WeatherApp extends StatelessWidget {
             ),
           ),
           iconTheme: const IconThemeData(color: Colors.white, size: 25.0)),
-      home: const ResultPage(),
+      home: const LoadingScreen(),
     );
   }
 }
