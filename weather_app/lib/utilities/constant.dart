@@ -20,3 +20,20 @@ const TextStyle kSubLabelStyle = TextStyle(
   color: kSubLabelColor,
   fontSize: 14.0,
 );
+
+Uri kLatLongURL(double latitude, double longitude) {
+  return Uri.https('api.openweathermap.org', '/data/2.5/forecast', {
+    'lat': latitude.toString(),
+    'lon': longitude.toString(),
+    'appid': kAPIKey,
+    'units': 'metric' //for celcius
+  });
+}
+
+Uri kCityUrl(String cityName) {
+  return Uri.https('api.openweathermap.org', '/data/2.5/forecast', {
+    'q': cityName,
+    'appid': kAPIKey,
+    'units': 'metric',
+  });
+}

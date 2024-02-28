@@ -1,5 +1,5 @@
 class WeatherModel {
-  final int temp;
+  final double temp;
   final String weatherDesc;
   final double windSpeed;
   final String weatherMain;

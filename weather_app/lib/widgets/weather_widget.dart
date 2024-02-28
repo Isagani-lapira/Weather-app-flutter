@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utilities/constant.dart';
 
 class WeatherWidget extends StatefulWidget {
-  final int temp;
+  final double temp;
   final double windSpeed;
   final String weatherMain;
   const WeatherWidget({
@@ -30,7 +30,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           width: 150.0,
         ),
         Text(
-          '${widget.temp}°',
+          '${widget.temp.toStringAsFixed(2)}°',
           style: GoogleFonts.ptSerif(
             fontSize: 52.0,
             fontWeight: FontWeight.bold,
