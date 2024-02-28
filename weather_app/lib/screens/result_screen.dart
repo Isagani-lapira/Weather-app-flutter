@@ -1,15 +1,29 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/utilities/constant.dart';
+import 'package:weather_app/widgets/weather_widget.dart';
+
+import '../model/weather_model.dart';
 
 class ResultPage extends StatefulWidget {
-  const ResultPage({super.key});
+  final List<WeatherModel> data;
+  const ResultPage({super.key, required this.data});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
 
 class _ResultPageState extends State<ResultPage> {
+  late int temperatureVal;
+  late double windSpeedVal;
+  late String weatherMain;
+  @override
+  void initState() {
+    super.initState();
+    temperatureVal = widget.data[0].temp.toInt();
+    windSpeedVal = widget.data[0].windSpeed;
+    weatherMain = widget.data[0].weatherMain;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,22 +33,25 @@ class _ResultPageState extends State<ResultPage> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              const Row(
+              Row(
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Icon(
-                      Icons.sync,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.sync,
+                      ),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 3,
                     child: Text(
                       'Sydney',
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 1,
                     child: Icon(
                       Icons.location_city,
@@ -44,52 +61,10 @@ class _ResultPageState extends State<ResultPage> {
               ),
               Expanded(
                 flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/image/sunny.png',
-                      fit: BoxFit.contain,
-                      height: 150.0,
-                      width: 150.0,
-                    ),
-                    Text(
-                      '34°',
-                      style: GoogleFonts.ptSerif(
-                        fontSize: 52.0,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    const Text(
-                      'The floor is lava',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.air,
-                                color: kSubLabelColor,
-                              ),
-                              Text(
-                                '5 km/h',
-                                style: TextStyle(
-                                  color: kSubLabelColor,
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                child: WeatherWidget(
+                  temp: temperatureVal,
+                  windSpeed: windSpeedVal,
+                  weatherMain: weatherMain,
                 ),
               )
             ],

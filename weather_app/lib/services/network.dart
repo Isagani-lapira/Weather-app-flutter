@@ -24,9 +24,12 @@ class NetworkHelper {
 
         for (var item in data['list']) {
           WeatherModel weatherModel = WeatherModel(
-            temp: item['main']['temp'],
+            temp: item['main']['temp'].round(),
             windSpeed: item['wind']['speed'],
             weatherDesc: item['weather'][0]['description'],
+            weatherMain: WeatherModel.getWeatherIcon(
+              item['weather'][0]['main'],
+            ),
           );
           forecast.add(weatherModel);
         }

@@ -22,7 +22,7 @@ class WeatherApp extends StatelessWidget {
             ),
           ),
           iconTheme: const IconThemeData(color: Colors.white, size: 25.0)),
-      home: const ResultPage(),
+      home: const LoadingScreen(),
     );
   }
 }

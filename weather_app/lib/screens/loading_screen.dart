@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/screens/result_screen.dart';
 import 'package:weather_app/services/location_service.dart';
 import 'package:weather_app/services/network.dart';
@@ -33,12 +34,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     networkHelper = NetworkHelper(latitude: latitude, longitude: longitude);
 
     var data = await networkHelper.getData();
-
     // Navigate to ResultScreen with the fetched data
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ResultPage(),
+        builder: (context) => ResultPage(
+          data: data,
+        ),
       ),
     );
   }

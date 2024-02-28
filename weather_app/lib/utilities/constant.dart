@@ -10,3 +10,13 @@ const String kAPIKey = '49cb3d1878da8308d154e3da86b3fca6';
 const Color kSunnyColor = Color(0xFFD02A02);
 const Color kSubLabelColor = Color.fromARGB(255, 223, 159, 145);
 const Color kCloudyBackground = Color(0xFFF7C9A7);
+
+const Icon kAirIcon = Icon(
+  Icons.air,
+  color: kSubLabelColor,
+);
+
+const TextStyle kSubLabelStyle = TextStyle(
+  color: kSubLabelColor,
+  fontSize: 14.0,
+);
