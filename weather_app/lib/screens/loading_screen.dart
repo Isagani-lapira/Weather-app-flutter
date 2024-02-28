@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/screens/result_screen.dart';
 import 'package:weather_app/services/location_service.dart';
 import 'package:weather_app/services/network.dart';
@@ -15,34 +14,26 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  late LocationService locationService = LocationService();
+  LocationService locationService = LocationService();
   late NetworkHelper networkHelper;
-  late double latitude;
-  late double longitude;
-
   @override
   void initState() {
     super.initState();
-    getLocationData(context); // Call getLocationData with the context
+    // run resultpage immediately after retrieving data
+    getLocationAndNavigate();
   }
 
-  void getLocationData(BuildContext context) async {
+  void getLocationAndNavigate() async {
     await locationService.getCurrentLocation();
-    latitude = locationService.getLatitude();
-    longitude = locationService.getLongitude();
-
-    networkHelper = NetworkHelper(latitude: latitude, longitude: longitude);
+    networkHelper = NetworkHelper(
+      latitude: locationService.getLatitude(),
+      longitude: locationService.getLongitude(),
+    );
 
     var data = await networkHelper.getData();
-    // Navigate to ResultScreen with the fetched data
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ResultPage(
-          data: data,
-        ),
-      ),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return ResultPage(data: data);
+    }));
   }
 
   @override

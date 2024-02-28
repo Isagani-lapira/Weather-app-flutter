@@ -21,7 +21,7 @@ class NetworkHelper {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         List<WeatherModel> forecast = [];
-
+        String cityName = data['city']['name'];
         for (var item in data['list']) {
           WeatherModel weatherModel = WeatherModel(
             temp: item['main']['temp'].round(),
@@ -30,6 +30,7 @@ class NetworkHelper {
             weatherMain: WeatherModel.getWeatherIcon(
               item['weather'][0]['main'],
             ),
+            cityName: cityName,
           );
           forecast.add(weatherModel);
         }
