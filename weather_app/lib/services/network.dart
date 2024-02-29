@@ -27,16 +27,17 @@ class NetworkHelper {
         var data = jsonDecode(response.body);
         List<WeatherModel> forecast = [];
         String cityName = data['city']['name'];
+        String country = data['city']['country'];
         for (var item in data['list']) {
           WeatherModel weatherModel = WeatherModel(
-            temp: (item['main']['temp'] - 273.15),
-            windSpeed: item['wind']['speed'],
-            weatherDesc: item['weather'][0]['description'],
-            weatherMain: WeatherModel.getWeatherIcon(
-              item['weather'][0]['main'],
-            ),
-            cityName: cityName,
-          );
+              temp: (item['main']['temp'] - 273.15),
+              windSpeed: item['wind']['speed'],
+              weatherDesc: item['weather'][0]['description'],
+              weatherMain: WeatherModel.getWeatherIcon(
+                item['weather'][0]['main'],
+              ),
+              cityName: cityName,
+              countryName: country);
           forecast.add(weatherModel);
         }
 
