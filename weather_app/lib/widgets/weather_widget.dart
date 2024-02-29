@@ -6,11 +6,13 @@ class WeatherWidget extends StatefulWidget {
   final double temp;
   final double windSpeed;
   final String weatherMain;
+  final String weatherDesc;
   const WeatherWidget({
     super.key,
     required this.temp,
     required this.windSpeed,
     required this.weatherMain,
+    required this.weatherDesc,
   });
 
   @override
@@ -37,9 +39,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             fontStyle: FontStyle.italic,
           ),
         ),
-        const Text(
-          'The floor is lava',
-          style: TextStyle(fontWeight: FontWeight.w500),
+        Text(
+          widget.weatherDesc,
+          style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

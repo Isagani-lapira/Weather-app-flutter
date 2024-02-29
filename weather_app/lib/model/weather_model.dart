@@ -4,6 +4,7 @@ class WeatherModel {
   final double windSpeed;
   final String weatherMain;
   final String cityName;
+  final String countryName;
 
   WeatherModel({
     required this.temp,
@@ -11,6 +12,7 @@ class WeatherModel {
     required this.weatherDesc,
     required this.weatherMain,
     required this.cityName,
+    required this.countryName,
   });
 
   static String getWeatherIcon(String weather) {

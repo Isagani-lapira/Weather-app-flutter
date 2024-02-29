@@ -18,7 +18,9 @@ class _ResultPageState extends State<ResultPage> {
   late double temperatureVal;
   late double windSpeedVal;
   late String weatherMain;
+  late String weatherDesc;
   late String cityName;
+  late String countryName;
   LocationService locationService = LocationService();
   late NetworkHelper networkHelper;
 
@@ -29,6 +31,8 @@ class _ResultPageState extends State<ResultPage> {
     windSpeedVal = widget.data[0].windSpeed;
     weatherMain = widget.data[0].weatherMain;
     cityName = widget.data[0].cityName;
+    weatherDesc = widget.data[0].weatherDesc;
+    countryName = widget.data[0].countryName;
   }
 
   void updateData() async {
@@ -70,7 +74,7 @@ class _ResultPageState extends State<ResultPage> {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      cityName,
+                      '$cityName \n$countryName',
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -102,6 +106,7 @@ class _ResultPageState extends State<ResultPage> {
                   temp: temperatureVal,
                   windSpeed: windSpeedVal,
                   weatherMain: weatherMain,
+                  weatherDesc: weatherDesc,
                 ),
               )
             ],
