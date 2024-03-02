@@ -21,6 +21,7 @@ class _ResultPageState extends State<ResultPage> {
   late String weatherDesc;
   late String cityName;
   late String countryName;
+  late String weatherIcon;
   LocationService locationService = LocationService();
   late NetworkHelper networkHelper;
 
@@ -30,6 +31,7 @@ class _ResultPageState extends State<ResultPage> {
     temperatureVal = widget.data[0].temp;
     windSpeedVal = widget.data[0].windSpeed;
     weatherMain = widget.data[0].weatherMain;
+    weatherIcon = widget.data[0].weatherIcon;
     cityName = widget.data[0].cityName;
     weatherDesc = widget.data[0].weatherDesc;
     countryName = widget.data[0].countryName;
@@ -41,13 +43,17 @@ class _ResultPageState extends State<ResultPage> {
       temperatureVal = data[0].temp;
       windSpeedVal = data[0].windSpeed;
       weatherMain = data[0].weatherMain;
+      weatherDesc = data[0].weatherDesc;
+      cityName = data[0].cityName;
+      countryName = data[0].countryName;
+      weatherIcon = data[0].weatherIcon;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSunnyColor,
+      backgroundColor: WeatherModel.getWeatherColor(weatherMain),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
@@ -105,7 +111,7 @@ class _ResultPageState extends State<ResultPage> {
                 child: WeatherWidget(
                   temp: temperatureVal,
                   windSpeed: windSpeedVal,
-                  weatherMain: weatherMain,
+                  weatherIcon: weatherIcon,
                   weatherDesc: weatherDesc,
                 ),
               )
