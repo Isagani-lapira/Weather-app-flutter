@@ -41,6 +41,8 @@ class _ResultPageState extends State<ResultPage> {
       temperatureVal = data[0].temp;
       windSpeedVal = data[0].windSpeed;
       weatherMain = data[0].weatherMain;
+      cityName = data[0].cityName;
+      countryName = data[0].countryName;
     });
   }
 
