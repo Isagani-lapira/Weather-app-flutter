@@ -5,13 +5,13 @@ import '../utilities/constant.dart';
 class WeatherWidget extends StatefulWidget {
   final double temp;
   final double windSpeed;
-  final String weatherMain;
+  final String weatherIcon;
   final String weatherDesc;
   const WeatherWidget({
     super.key,
     required this.temp,
     required this.windSpeed,
-    required this.weatherMain,
+    required this.weatherIcon,
     required this.weatherDesc,
   });
 
@@ -26,7 +26,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
-          'assets/image/${widget.weatherMain}',
+          'assets/image/${widget.weatherIcon}',
           fit: BoxFit.contain,
           height: 150.0,
           width: 150.0,

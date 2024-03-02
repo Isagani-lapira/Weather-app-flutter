@@ -30,10 +30,11 @@ class NetworkHelper {
         String country = data['city']['country'];
         for (var item in data['list']) {
           WeatherModel weatherModel = WeatherModel(
-              temp: (item['main']['temp'] - 273.15),
+              temp: (item['main']['temp'].toDouble() - 273.15),
               windSpeed: item['wind']['speed'],
               weatherDesc: item['weather'][0]['description'],
-              weatherMain: WeatherModel.getWeatherIcon(
+              weatherMain: item['weather'][0]['main'],
+              weatherIcon: WeatherModel.getWeatherIcon(
                 item['weather'][0]['main'],
               ),
               cityName: cityName,
