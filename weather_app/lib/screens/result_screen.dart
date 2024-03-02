@@ -49,7 +49,7 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kSunnyColor,
+      backgroundColor: WeatherModel.getWeatherColor(weatherMain),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15.0),

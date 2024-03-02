@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:weather_app/utilities/constant.dart';
+
 class WeatherModel {
   final double temp;
   final String weatherDesc;
@@ -35,6 +39,32 @@ class WeatherModel {
         break;
       default:
         weatherImage = 'cloudy.png';
+        break;
+    }
+
+    return weatherImage;
+  }
+
+  static Color getWeatherColor(String weather) {
+    Color weatherImage;
+    switch (weather) {
+      case 'Rain':
+        weatherImage = kRainyBackground;
+        break;
+      case 'Snow':
+        weatherImage = kSnowyBackground;
+        break;
+      case 'Thunderstorm':
+        weatherImage = kThunderBackground;
+        break;
+      case 'Clear':
+        weatherImage = kSunnyColor;
+        break;
+      case 'Drizzle':
+        weatherImage = kDrizzleBackground;
+        break;
+      default:
+        weatherImage = kCloudyBackground;
         break;
     }
 
