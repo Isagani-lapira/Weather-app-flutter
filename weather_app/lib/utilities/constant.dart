@@ -39,3 +39,10 @@ Uri kCityUrl(String cityName) {
     'appid': kAPIKey,
   });
 }
+
+const italicTNRStyle = TextStyle(
+  fontFamily: 'Tinos',
+  fontSize: 52.0,
+  fontWeight: FontWeight.bold,
+  fontStyle: FontStyle.italic,
+);
