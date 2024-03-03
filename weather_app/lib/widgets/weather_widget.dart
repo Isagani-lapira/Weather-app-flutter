@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../utilities/constant.dart';
 
 class WeatherWidget extends StatefulWidget {
@@ -33,11 +32,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         ),
         Text(
           '${widget.temp.toStringAsFixed(2)}°',
-          style: GoogleFonts.ptSerif(
-            fontSize: 52.0,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-          ),
+          style: italicTNRStyle,
         ),
         Text(
           widget.weatherDesc,
