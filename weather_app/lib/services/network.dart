@@ -31,7 +31,7 @@ class NetworkHelper {
         for (var item in data['list']) {
           WeatherModel weatherModel = WeatherModel(
               temp: (item['main']['temp'].toDouble() - 273.15),
-              windSpeed: item['wind']['speed'],
+              windSpeed: item['wind']['speed'].toDouble(),
               weatherDesc: item['weather'][0]['description'],
               weatherMain: item['weather'][0]['main'],
               weatherIcon: WeatherModel.getWeatherIcon(
