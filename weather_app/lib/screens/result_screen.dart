@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/screens/search_city_screen.dart';
 import 'package:weather_app/services/location_service.dart';
 import 'package:weather_app/services/network.dart';
-import 'package:weather_app/utilities/constant.dart';
 import 'package:weather_app/widgets/weather_widget.dart';
 
 import '../model/weather_model.dart';
